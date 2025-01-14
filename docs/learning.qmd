@@ -42,3 +42,7 @@ Should you git gut or gut git? You got to git it. Gut.
 post_meal_data
 ```
 
+```{r}
+glimpse(post_meal_data)
+```
+
