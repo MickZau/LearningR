@@ -1,0 +1,34 @@
+---
+title: "Test-1-af-quarto"
+author: "MZS"
+format: html
+---
+
+## Keep it simple, stupid (R)
+
+```{r}
+1 + 1
+```
+
+## Setup Chunkus
+
+```{r setup}
+library(tidyverse)
+```
+
+## About Me
+
+- Dude: Michael
+- Place: SDCC
+- Stuff: Diabetes Research
+
+I *like* **trains**
+
+## Simple Code or not?
+
+```{r}
+3 * 3
+```
+
+## Testing for GIT
+Should you git gut or gut git? You got to git it. Gut.
