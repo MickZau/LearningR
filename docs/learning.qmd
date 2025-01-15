@@ -118,3 +118,14 @@ post_meal_data |>
   ggplot(aes(x = Group, fill = as.character(glykemi))) +
   geom_bar(position = position_dodge())
 ```
+
+## Two contiuous variables
+
+```{r}
+#| fig-cap: "Scatterplot test"
+#| label: fig-scatter-test
+ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) + 
+  geom_point() +
+  geom_smooth()
+```
+
