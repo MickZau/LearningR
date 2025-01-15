@@ -81,6 +81,42 @@ post_meal_data |>
   geom_bar()
 
 ```
+
+```{r}
+post_meal_data |>
+  ggplot(aes(x = Group, fill = as.character(glykemi))) + 
+  geom_bar(position = position_dodge())
+
 ```
 
+
+## Plots side by side
+
+```{r}
+ggplot(post_meal_data, aes(x = BMI)) + geom_histogram()
+
+```
+
+```{r}
+post_meal_data |>
+  ggplot(aes(x = Group, fill = as.character(glykemi))) + 
+  geom_bar(position = position_dodge())
+
+```
+
+```{r side-by-side-figs}
+#| label: fig-bmi-group
+#| fig-cap: "BMI and Group, side by side"
+#| fig-subcap: 
+#|   - "Distribution of BMI."
+#|   - "Group allocation."
+#| layout-ncol: 2
+ggplot(post_meal_data, aes(x = BMI)) +
+  geom_histogram()
+
+post_meal_data |>
+ggplot(aes(x = Group, fill = as.character(glykemi))) + 
+  geom_bar(position = position_dodge())
+
+```
 
