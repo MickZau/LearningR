@@ -124,8 +124,14 @@ post_meal_data |>
 ```{r}
 #| fig-cap: "Scatterplot test"
 #| label: fig-scatter-test
+```
+
+
+```{r}
 ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) + 
   geom_point() +
   geom_smooth()
 ```
 
+
+## GITHUB change
