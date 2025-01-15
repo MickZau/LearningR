@@ -49,6 +49,38 @@ glimpse(post_meal_data)
 
 
 ```{r}
-ggplot()
+#| fig-cap: "Distribution of BMI"
+#| label: fig-bmi-histo
+#| message: false
+ggplot(post_meal_data, aes(x = BMI)) + geom_histogram()
 ```
+
+@fig-bmi-histo
+
+## New gut bar plot for Git
+
+```{r}
+#| message: false
+#| fig-cap: "Group allocation count"
+#| label: fig-group-bar
+ggplot(post_meal_data, aes(x = Group)) + geom_bar()
+```
+
+See @fig-group-bar for allocation bar graph
+
+## Fill?
+
+```{r}
+post_meal_data |>
+  ggplot(aes(x = Group, fill = glykemi)) + geom_bar()
+```
+
+```{r}
+post_meal_data |>
+  ggplot(aes(x = Group, fill = as.character(glykemi))) + 
+  geom_bar()
+
+```
+```
+
 
