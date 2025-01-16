@@ -233,8 +233,23 @@ small_post_meal_data |>
 
 ```{r}
 tidier_post_meal_data |>
-  mutate(insulin_glucose_ratio = 
-auc_insulin/auc_glucose,
-    Group = if_else(Group == "CTR", "Control", "First-degree relative"))
+  mutate(
+    insulin_glucose_ratio =
+      auc_insulin / auc_glucose,
+    Group = if_else(Group == "CTR", "Control", "First-degree relative")
+  )
 ```
 
+## 11.9 exercise
+
+```{r}
+post_meal_data |>
+  filter(BMI >= 20, BMI <= 40, Group == "FDR")
+```
+
+```{r}
+post_meal_data |>
+  mutate(
+    percent_body_fat = (Fat.mass.DXA / Weight) * 100) |>
+  filter(percent_body_fat >= 30)
+```
