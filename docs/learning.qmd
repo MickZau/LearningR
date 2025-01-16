@@ -348,4 +348,22 @@ post_meal_data |>
   scale_fill_viridis_d(option = "cividis")
 ```
 
+```{r}
+# Tasks 3. and 4.
+#| layout-ncol: 3
+post_meal_data |>
+  ggplot(aes(x = auc_pg, y = auc_ins, colour = BMI)) +
+  geom_point() +
+  scale_colour_viridis_c(option = "magma")
+  
+  post_meal_data |>
+  ggplot(aes(x = auc_pg, y = auc_ins, colour = BMI)) +
+  geom_point() +
+  scale_colour_viridis_c(option = "cividis")
+  
+  post_meal_data |>
+  ggplot(aes(x = auc_pg, y = auc_ins, colour = BMI)) +
+  geom_point() +
+  scale_colour_viridis_c(option = "inferno")
+```
 
