@@ -251,5 +251,6 @@ post_meal_data |>
 post_meal_data |>
   mutate(
     percent_body_fat = (Fat.mass.DXA / Weight) * 100) |>
-  filter(percent_body_fat >= 30)
+  filter(percent_body_fat >= 30) |>
+select(id, BMI, Length, Weight, Age, percent_body_fat)
 ```
