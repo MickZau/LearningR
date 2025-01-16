@@ -291,3 +291,61 @@ tidied_post_meal_data |>
     y = "Insulin to glucose ratio")
 ```
 
+## Mad multidimensional gits
+
+```{r}
+#| label: fig-multidimensional
+#| fig-cap: "Two, mult-dimensional plots of our data."
+#| fig-subcap:
+#|   - "Distribution of percent body fat by group and age category."
+#|   - "Relationship between BMI and bone mineral density, split by insulin sensitivity."
+#| layout-ncol: 2
+# Task 1.
+post_meal_data |>
+  mutate(
+    percent_body_fat = (Fat.mass.DXA / Weight) * 100,
+    young = if_else(Age < 40, "Young", "Old")) |>
+  ggplot(aes(x = Group, y = percent_body_fat, colour = young)) +
+  geom_jitter(width = 0.2)
+
+# Task 2.
+post_meal_data |>
+  mutate(
+    insulin_glucose_ratio = (auc_ins / auc_pg),
+    insulin_insensitive = if_else(insulin_glucose_ratio > mean(insulin_glucose_ratio), "Insensitive", "Sensitive")) |>
+  ggplot(aes(x = BMI, y = Bone.mineral.DXA, colour = insulin_insensitive)) +
+  geom_point() +
+  geom_smooth() +
+  facet_grid(cols = vars(insulin_insensitive))
+```
+
+## Helping the blind
+
+```{r}
+# Tasks 1. and 2.
+#| label: fig-bmi-glycemia
+#| fig-cap: "BMI and glycemia, side by side."
+#| fig-subcap:
+#|   - "Distribution of BMI."
+#|   - "Number of those with glycemia."
+#| layout-ncol: 3
+post_meal_data |>
+  mutate(hyperglycemia = if_else(glykemi == 1, "Yes", "No")) |>
+  ggplot(aes(x = Group, fill = hyperglycemia)) +
+  geom_bar(position = position_dodge()) + 
+  scale_fill_viridis_d()
+
+post_meal_data |>
+  mutate(hyperglycemia = if_else(glykemi == 1, "Yes", "No")) |>
+  ggplot(aes(x = Group, fill = hyperglycemia)) +
+  geom_bar(position = position_dodge()) + 
+  scale_fill_viridis_d(option = "magma")
+
+post_meal_data |>
+  mutate(hyperglycemia = if_else(glykemi == 1, "Yes", "No")) |>
+  ggplot(aes(x = Group, fill = hyperglycemia)) +
+  geom_bar(position = position_dodge()) + 
+  scale_fill_viridis_d(option = "cividis")
+```
+
+
