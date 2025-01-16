@@ -256,9 +256,10 @@ post_meal_data |>
 ```{r}
 post_meal_data |>
   mutate(
-    percent_body_fat = (Fat.mass.DXA / Weight) * 100) |>
+    percent_body_fat = (Fat.mass.DXA / Weight) * 100
+  ) |>
   filter(percent_body_fat >= 30) |>
-select(id, BMI, Length, Weight, Age, percent_body_fat)
+  select(id, BMI, Length, Weight, Age, percent_body_fat)
 ```
 
 ## Visualize git with jit
@@ -288,7 +289,8 @@ tidied_post_meal_data |>
   facet_grid(rows = vars(young)) +
   labs(
     x = "Body mass index (BMI)",
-    y = "Insulin to glucose ratio")
+    y = "Insulin to glucose ratio"
+  )
 ```
 
 ## Mad multidimensional gits
@@ -304,7 +306,8 @@ tidied_post_meal_data |>
 post_meal_data |>
   mutate(
     percent_body_fat = (Fat.mass.DXA / Weight) * 100,
-    young = if_else(Age < 40, "Young", "Old")) |>
+    young = if_else(Age < 40, "Young", "Old")
+  ) |>
   ggplot(aes(x = Group, y = percent_body_fat, colour = young)) +
   geom_jitter(width = 0.2)
 
@@ -312,7 +315,8 @@ post_meal_data |>
 post_meal_data |>
   mutate(
     insulin_glucose_ratio = (auc_ins / auc_pg),
-    insulin_insensitive = if_else(insulin_glucose_ratio > mean(insulin_glucose_ratio), "Insensitive", "Sensitive")) |>
+    insulin_insensitive = if_else(insulin_glucose_ratio > mean(insulin_glucose_ratio), "Insensitive", "Sensitive")
+  ) |>
   ggplot(aes(x = BMI, y = Bone.mineral.DXA, colour = insulin_insensitive)) +
   geom_point() +
   geom_smooth() +
@@ -332,19 +336,19 @@ post_meal_data |>
 post_meal_data |>
   mutate(hyperglycemia = if_else(glykemi == 1, "Yes", "No")) |>
   ggplot(aes(x = Group, fill = hyperglycemia)) +
-  geom_bar(position = position_dodge()) + 
+  geom_bar(position = position_dodge()) +
   scale_fill_viridis_d()
 
 post_meal_data |>
   mutate(hyperglycemia = if_else(glykemi == 1, "Yes", "No")) |>
   ggplot(aes(x = Group, fill = hyperglycemia)) +
-  geom_bar(position = position_dodge()) + 
+  geom_bar(position = position_dodge()) +
   scale_fill_viridis_d(option = "magma")
 
 post_meal_data |>
   mutate(hyperglycemia = if_else(glykemi == 1, "Yes", "No")) |>
   ggplot(aes(x = Group, fill = hyperglycemia)) +
-  geom_bar(position = position_dodge()) + 
+  geom_bar(position = position_dodge()) +
   scale_fill_viridis_d(option = "cividis")
 ```
 
@@ -355,15 +359,39 @@ post_meal_data |>
   ggplot(aes(x = auc_pg, y = auc_ins, colour = BMI)) +
   geom_point() +
   scale_colour_viridis_c(option = "magma")
-  
-  post_meal_data |>
+
+post_meal_data |>
   ggplot(aes(x = auc_pg, y = auc_ins, colour = BMI)) +
   geom_point() +
   scale_colour_viridis_c(option = "cividis")
-  
-  post_meal_data |>
+
+post_meal_data |>
   ggplot(aes(x = auc_pg, y = auc_ins, colour = BMI)) +
   geom_point() +
   scale_colour_viridis_c(option = "inferno")
 ```
 
+## Calculating git for dummies
+
+```{r}
+tidied_post_meal_data |>
+  summarise(
+    max_bmi = max(BMI),
+    min_bmi = min(BMI)
+  )
+```
+
+## Split the Git
+
+```{r}
+#| label: tbl-mean-age-bmi
+#| tbl-cap: "Mean values of Age and BMI for each group"
+tidied_post_meal_data |>
+  group_by(Group) |>
+  summarise(
+    "Mean age" = round(mean(Age), 1),
+    "Mean BMI (kg/m^2^)" = round(mean(BMI), 1)
+  ) |>
+  ungroup() |> 
+  knitr::kable()
+```
